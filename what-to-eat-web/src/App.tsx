@@ -1,8 +1,10 @@
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
-    <>
-      <h1 className="text-red-500">Yeye</h1>
-    </>
+    <div className="flex flex-col max-w-full">
+      <Navbar />
+    </div>
   )
 }
 
