@@ -6,8 +6,7 @@ This is going to be a web app (later also a mobile app), which is intended for u
 You can use this app to enter your fridge contents and get a bunch of recipes for what can you make, therefore nullifying the issue of you not knowing how or what to make.
 
 ## Design concept
-![Design-concept](https://github.com/user-attachments/assets/3c5edbf2-e276-4d6d-9084-6b8b820248cb)
-
+![Screenshot from 2024-10-13 15-31-10](https://github.com/user-attachments/assets/40a6fc71-5498-482b-9444-13cb01f5e30d)
 
 ## Project structure
 There won't be any accounts for now. That can come in later at some point, but not now.
