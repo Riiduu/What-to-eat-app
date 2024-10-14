@@ -1,5 +1,8 @@
+// Components
+import BottomNavbar from "./components/BottomNavbar";
 import Navbar from "./components/Navbar";
 import RandomPick from "./components/RandomPick";
+
 
 function App() {
   return (
@@ -7,9 +10,7 @@ function App() {
       <div className="flex flex-col max-w-md mx-auto bg-white h-screen">
         <Navbar />
         <RandomPick />
-        <div className="h-20">
-
-        </div>
+        <BottomNavbar />
       </div>
       
       
