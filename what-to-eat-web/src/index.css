@@ -3,7 +3,5 @@
 @tailwind utilities;
 
 .title-text {
-    .poppins-light {
         font-family: "Poppins", serif;
-      }
 }
