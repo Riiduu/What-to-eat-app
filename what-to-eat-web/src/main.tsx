@@ -6,12 +6,18 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import SearchScreen from './screens/SearchScreen.tsx';
+import HomeScreen from './screens/HomeScreen.tsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <HomeScreen />,
   },
+  {
+    path: "/search",
+    element: <SearchScreen />
+  }
 ]);
 
 createRoot(document.getElementById('root')!).render(
