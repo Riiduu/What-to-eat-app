@@ -12,8 +12,8 @@ const RandomPick = () => {
 
             {/* Text Content */}
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-40 p-4 text-white">
-            <h2 className="text-lg font-bold">Random pick</h2>
-            <p className="text-sm">These pancakes look fucking amazing, holy shit.</p>
+            <h2 className="text-lg font-bold title-text">Random pick</h2>
+            <p className="text-sm title-text">These pancakes look fucking amazing, holy shit.</p>
             </div>
         </div>
     </div>
