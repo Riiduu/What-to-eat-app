@@ -8,7 +8,7 @@ const SearchScreen = () => {
     // Holds the excluded ingredients list
     const [excludedIngredients, setExcludedIngredients] = useState<string[]>(["Pineapple"]);
     // MaxIngredients state
-    const [maxIngredients, setMaxIngredients] = useState(0)
+    const [selectedMax, setSelectedMax] = useState(0)
 
     /////////// INPUT STATES
     // Add ingredient input
@@ -34,13 +34,19 @@ const SearchScreen = () => {
     }
 
     // MaxIngredient button component
-    const MaxIngredientComponent = (props: any) => {      
+    const MaxIngredientComponent = (props: any) => {
+        const handleClick = () => {
+            setSelectedMax(parseInt(props.item)); // Update selected max ingredients
+        };
+
+        const isSelected = selectedMax === parseInt(props.item);
+
         return (
-            <a onClick={() => console.log(props.item)} href="#" className=" w-9 h-9 flex justify-center items-center rounded-xl p-2 font-medium text-2xl bg-green-500 text-white">
+            <a onClick={handleClick} href="#" className={`w-9 h-9 flex justify-center items-center rounded-xl p-2 font-medium text-2xl ${isSelected ? 'bg-blue-500' : 'bg-green-500'} text-white`}>
                 {props.item}
             </a>
-        )
-    }
+        );
+    };
 
     // Called on input submit (enter key). Inserts the item into the state array
     const InsertItem = () => {
@@ -86,7 +92,7 @@ const SearchScreen = () => {
         <div className="flex flex-col my-3 mx-5">
             {/* Ingredients */}
             <div className="flex flex-col w-full my-5">
-                <div className="flex flex-row items-center">
+                <div className="flex flex-row justify-between items-center">
                     <h1 className="text-3xl font-extrabold title-text">Ingredients</h1>
                     <span className="flex justify-center items-center text-xl font-bold rounded-xl ml-5 p-4 w-7 h-7 bg-orange-400 text-white">{ingredientsList.length}</span>
                 </div>
@@ -109,8 +115,8 @@ const SearchScreen = () => {
 
             {/* Max Additional Ingredients */}
             <div className="flex flex-col w-full my-5">
-                <div className="flex flex-row items-center">
-                    <h1 className="text-3xl font-extrabold title-text">Ingredients</h1>
+                <div className="flex flex-row justify-between items-center">
+                    <h1 className="text-3xl font-extrabold title-text">Max Additional Ingredients</h1>
                     <span className="flex justify-center items-center text-xl font-bold rounded-xl ml-5 p-4 w-7 h-7 bg-orange-400 text-white">0</span>
                 </div>
                 <div className="flex flex-row items-center mt-4 space-x-3">
@@ -125,9 +131,9 @@ const SearchScreen = () => {
 
             {/* Exclude Ingredients */}
             <div className="flex flex-col w-full my-5">
-                <div className="flex flex-row items-center">
+                <div className="flex flex-row justify-between items-center">
                     <h1 className="text-3xl font-extrabold title-text">Exclude Ingredients</h1>
-                    <span className="flex justify-center items-center text-xl font-bold rounded-xl ml-5 p-4 w-7 h-7 bg-orange-400 text-white">0</span>
+                    <span className="flex justify-center items-center text-xl font-bold rounded-xl ml-5 p-4 w-7 h-7 bg-orange-400 text-white">{excludedIngredients.length}</span>
                 </div>
                 <div className="flex flex-row items-center mt-2 -mx-1 flex-wrap">
                     {
