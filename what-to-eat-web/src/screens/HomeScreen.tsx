@@ -2,12 +2,12 @@ import Navbar from "../components/Navbar"
 import RandomPick from "../components/RandomPick"
 import BottomNavbar from "../components/BottomNavbar"
 import { useState } from "react"
+import SearchScreen from "./SearchScreen"
 
 const HomeScreen = () => {
     const [searchActive, setSearchActive] = useState(false);
 
     function changeSearchStatus() {
-        console.log("yeye")
         setSearchActive(!searchActive);
     }
     
@@ -17,7 +17,17 @@ const HomeScreen = () => {
                 searchActive={searchActive}
                 switchToSearch={changeSearchStatus}
             />
-            <RandomPick />
+            <div className="h-full mb-2">
+                {
+                    searchActive
+                        ? <SearchScreen />
+                        : <RandomPick />
+                }
+                
+            </div>
+            
+        
+            
             <BottomNavbar />
         </div>
     )
