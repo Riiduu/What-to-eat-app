@@ -2,18 +2,21 @@ import { useRef, useState, useEffect } from "react";
 
 const SearchScreen = () => {
 
+    /////////// LISTS / Info
     // Holds the selected ingredients
     const [ingredientsList, setIngredientsList] = useState<string[]>(["Tomato", "Potato", "Carrot"]);
+    // Holds the excluded ingredients list
+    const [excludedIngredients, setExcludedIngredients] = useState<string[]>(["Pineapple"]);
+    // MaxIngredients state
+    const [maxIngredients, setMaxIngredients] = useState(0)
+
+    /////////// INPUT STATES
     // Add ingredient input
     const [includedInputActive, setIncludedInputActive] = useState(false);
     // exclude ingredient input
     const [excludedInputActive, setExcludedInputActive] = useState(false);
 
-    // Holds the excluded ingredients list
-    const [excludedIngredients, setExcludedIngredients] = useState<string[]>(["Pineapple"]);
-
-    
-
+    //////// INPUTS
     // Included ingredients
     const includedInputRef = useRef("");
     // Excluded Ingredients
@@ -30,9 +33,26 @@ const SearchScreen = () => {
         )
     }
 
+    // MaxIngredient button component
+    const MaxIngredientComponent = (props: any) => {      
+        return (
+            <a onClick={() => console.log(props.item)} href="#" className=" w-9 h-9 flex justify-center items-center rounded-xl p-2 font-medium text-2xl bg-green-500 text-white">
+                {props.item}
+            </a>
+        )
+    }
+
     // Called on input submit (enter key). Inserts the item into the state array
     const InsertItem = () => {
-        setIngredientsList([...ingredientsList, inputRef.current.value])
+        setIngredientsList([...ingredientsList, includedInputRef.current.value])
+        includedInputRef.current.value = "";
+        setIncludedInputActive(false);
+    }
+
+    const InsertExcluded = () => {
+        setExcludedIngredients([...excludedIngredients, excludedInputRef.current.value])
+        excludedInputRef.current.value = "";
+        setExcludedInputActive(false);
     }
 
     // included ingredient input box reaction to clicks outside of it
@@ -59,7 +79,8 @@ const SearchScreen = () => {
     }, [includedInputActive, excludedInputActive]);
 
     
-
+    // random
+    const items = Array(6).fill("Item");
 
     return (
         <div className="flex flex-col my-3 mx-5">
@@ -93,7 +114,12 @@ const SearchScreen = () => {
                     <span className="flex justify-center items-center text-xl font-bold rounded-xl ml-5 p-4 w-7 h-7 bg-orange-400 text-white">0</span>
                 </div>
                 <div className="flex flex-row items-center mt-4 space-x-3">
-  
+                    <MaxIngredientComponent item="0"/>
+                    <MaxIngredientComponent item="1"/>
+                    <MaxIngredientComponent item="2"/>
+                    <MaxIngredientComponent item="3"/>
+                    <MaxIngredientComponent item="4"/>
+                    <MaxIngredientComponent item="5"/>
                 </div>
             </div>
 
@@ -109,7 +135,7 @@ const SearchScreen = () => {
                             return <IngredientItem item={item} key={key} setArray={setExcludedIngredients} array={excludedIngredients}/>
                         })
                     }
-                    <form className="relative flex justify-center" onSubmit={InsertItem}>
+                    <form className="relative flex justify-center" onSubmit={InsertExcluded}>
                         {
                             excludedInputActive && <input type="text" className="absolute top-[-45px] rounded-xl border-black border-2 shadow-md outline-none w-40 py-2 px-1" ref={excludedInputRef}/>
                         }
