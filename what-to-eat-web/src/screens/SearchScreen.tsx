@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { searchIcon } from "../assets/exports";
 
 const SearchScreen = () => {
 
@@ -89,7 +90,7 @@ const SearchScreen = () => {
     const items = Array(6).fill("Item");
 
     return (
-        <div className="flex flex-col my-3 mx-5">
+        <div className="flex flex-col my-3 mx-5 h-full relative">
             {/* Ingredients */}
             <div className="flex flex-col w-full my-5">
                 <div className="flex flex-row justify-between items-center">
@@ -150,6 +151,10 @@ const SearchScreen = () => {
                     </form>
                 </div>
             </div>
+            <button className="absolute cursor-pointer flex flex-row justify-center items-center py-2 px-4 bg-black text-white text-2xl font-bold rounded-xl bottom-5 right-0 active:shadow-2xl shadow-md">
+                Search
+                <img src={searchIcon} className="h-6 ml-2" alt="Search Icon" />
+            </button>
         </div>
     )
 }
