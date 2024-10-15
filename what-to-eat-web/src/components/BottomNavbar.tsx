@@ -2,7 +2,7 @@ import { settingsIcon, bookmarkIcon, bookmarksIcon, discoverIcon } from "../asse
 
 const BottomNavbar = () => {
     return (
-        <div className="h-20 w-3/4 mx-auto flex flex-row justify-around items-center">
+        <div className="h-20 w-full mx-auto flex flex-row justify-between items-center px-5">
             <div className="border-b py-2 border-black">
                 <img className="h-8" src={discoverIcon} alt="" />
             </div>
