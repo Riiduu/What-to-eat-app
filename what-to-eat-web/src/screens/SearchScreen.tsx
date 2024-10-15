@@ -2,20 +2,31 @@ import { useRef, useState, useEffect } from "react";
 
 const SearchScreen = () => {
 
+    // Holds the selected ingredients
     const [ingredientsList, setIngredientsList] = useState<string[]>(["Tomato", "Potato", "Carrot"]);
-    const [inputActive, setInputActive] = useState(false);
+    // Add ingredient input
+    const [includedInputActive, setIncludedInputActive] = useState(false);
+    // exclude ingredient input
+    const [excludedInputActive, setExcludedInputActive] = useState(false);
 
-    const inputRef = useRef("");
-    const itemRef = useRef();
+    // Holds the excluded ingredients list
+    const [excludedIngredients, setExcludedIngredients] = useState<string[]>(["Pineapple"]);
+
+    
+
+    // Included ingredients
+    const includedInputRef = useRef("");
+    // Excluded Ingredients
+    const excludedInputRef = useRef("")
 
     // Ingredient item component
     const IngredientItem = (props: any) => {
-        const removeIngredient = () => {                         
-            setIngredientsList(ingredientsList.filter(item => item !== props.item));
+        const removeIngredient = (setArray: any, array: any) => {                         
+            setArray(array.filter(item => item !== props.item));
         }
         
         return (
-            <a onClick={removeIngredient} ref={itemRef} className="bg-blue-500 cursor-pointer text-white m-1 px-3 py-2 rounded-2xl font-medium title-text">{props.item}</a>
+            <a onClick={() => removeIngredient(props.setArray, props.array)} className="bg-blue-500 cursor-pointer text-white m-1 px-3 py-2 rounded-2xl font-medium title-text">{props.item}</a>
         )
     }
 
@@ -24,15 +35,18 @@ const SearchScreen = () => {
         setIngredientsList([...ingredientsList, inputRef.current.value])
     }
 
+    // included ingredient input box reaction to clicks outside of it
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
-                setInputActive(false); // Hide input when clicking outside
+            if (includedInputRef.current && !includedInputRef.current.contains(event.target as Node)) {
+                setIncludedInputActive(false); // Hide input when clicking outside
+            } else if (excludedInputRef.current && !excludedInputRef.current.contains(event.target as Node)) {
+                setExcludedInputActive(false); // Hide input when clicking outside
             }
         }
 
         // Add event listener when input is active
-        if (inputActive) {
+        if (includedInputActive || excludedInputActive) {
             document.addEventListener("mousedown", handleClickOutside);
         } else {
             document.removeEventListener("mousedown", handleClickOutside);
@@ -42,7 +56,9 @@ const SearchScreen = () => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [inputActive]);
+    }, [includedInputActive, excludedInputActive]);
+
+    
 
 
     return (
@@ -56,15 +72,15 @@ const SearchScreen = () => {
                 <div className="flex flex-row items-center mt-2 -mx-1 flex-wrap relative">
                     {
                         ingredientsList.map((item, key) => {
-                            return <IngredientItem item={item} key={key}/>
+                            return <IngredientItem item={item} key={key} setArray={setIngredientsList} array={ingredientsList}/>
                         })
                     }
                     <form className="relative flex justify-center" onSubmit={InsertItem}>
                         {
-                            inputActive && <input type="text" className="absolute top-[-45px] rounded-xl border-black border-2 shadow-md outline-none w-40 py-2 px-1" ref={inputRef}/>
+                            includedInputActive && <input type="text" className="absolute top-[-45px] rounded-xl border-black border-2 shadow-md outline-none w-40 py-2 px-1" ref={includedInputRef}/>
                         }
                         
-                        <a onClick={() => setInputActive(!inputActive)} href="#" className="bg-green-500 text-white m-1 px-3 py-2 rounded-2xl font-medium title-text">Add +</a>
+                        <a onClick={() => setIncludedInputActive(!includedInputActive)} href="#" className="bg-green-500 text-white m-1 px-3 py-2 rounded-2xl font-medium title-text">Add +</a>
                     </form>
                     
                 </div>
@@ -88,7 +104,18 @@ const SearchScreen = () => {
                     <span className="flex justify-center items-center text-xl font-bold rounded-xl ml-5 p-4 w-7 h-7 bg-orange-400 text-white">0</span>
                 </div>
                 <div className="flex flex-row items-center mt-2 -mx-1 flex-wrap">
-                    <a href="#" className="bg-green-500 text-white m-1 px-3 py-2 rounded-2xl font-medium title-text">Add +</a>
+                    {
+                        excludedIngredients.map((item, key) => {
+                            return <IngredientItem item={item} key={key} setArray={setExcludedIngredients} array={excludedIngredients}/>
+                        })
+                    }
+                    <form className="relative flex justify-center" onSubmit={InsertItem}>
+                        {
+                            excludedInputActive && <input type="text" className="absolute top-[-45px] rounded-xl border-black border-2 shadow-md outline-none w-40 py-2 px-1" ref={excludedInputRef}/>
+                        }
+                        
+                        <a onClick={() => setExcludedInputActive(!excludedInputActive)} href="#" className="bg-green-500 text-white m-1 px-3 py-2 rounded-2xl font-medium title-text">Add +</a>
+                    </form>
                 </div>
             </div>
         </div>
