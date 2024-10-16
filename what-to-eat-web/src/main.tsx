@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
 import './index.css'
 import {
   createBrowserRouter,
@@ -8,6 +7,7 @@ import {
 } from "react-router-dom";
 import SearchScreen from './screens/SearchScreen.tsx';
 import HomeScreen from './screens/HomeScreen.tsx';
+import SearchResultsScreen from './screens/SearchResultsScreen.tsx';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/search",
     element: <SearchScreen />
+  },
+  {
+    path: 'results',
+    element: <SearchResultsScreen />
   }
 ]);
 
