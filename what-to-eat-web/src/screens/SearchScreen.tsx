@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import { useIngredients } from "../api/getIngredients";
+// custom hook / backend ig
+import { useIngredients } from "../api/useIngredients";
+//img
 import { searchIcon } from "../assets/exports";
 
 const SearchScreen = () => {
+    // Functions and states from the custom hook
     const {
         ingredientsList,
         setIngredientsList,
@@ -33,6 +36,7 @@ const SearchScreen = () => {
         )
     };
 
+    // Null checks the search values
     const checkSearch = () => {
         if (searchInfo.ingredients.length == 0) {
             alert('Enter search preferences')
@@ -74,7 +78,7 @@ const SearchScreen = () => {
         );
     };
 
-    // included ingredient input box reaction to clicks outside of it
+    // included ingredient input box reaction to clicks outside of it (turns off)
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (includedInputRef.current && !includedInputRef.current.contains(event.target as Node)) {
@@ -96,12 +100,6 @@ const SearchScreen = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };      
     }, [includedInputActive, excludedInputActive]);
-
-
-    
-    
-    // random
-    const items = Array(6).fill("Item");
 
     return (
         <div className="flex flex-col my-3 mx-5 h-full relative">
@@ -135,12 +133,12 @@ const SearchScreen = () => {
                     <span className="flex justify-center items-center text-xl font-bold rounded-xl ml-5 p-4 w-7 h-7 bg-orange-400 text-white">{selectedMax}</span>
                 </div>
                 <div className="flex flex-row items-center mt-4 space-x-3">
-                    <MaxIngredientComponent item="0"/>
-                    <MaxIngredientComponent item="1"/>
-                    <MaxIngredientComponent item="2"/>
-                    <MaxIngredientComponent item="3"/>
-                    <MaxIngredientComponent item="4"/>
-                    <MaxIngredientComponent item="5"/>
+                    {
+                    [...Array(6)].map((_, index) => (
+                        <MaxIngredientComponent key={index} item={index} />
+                    ))
+                    }
+
                 </div>
             </div>
 

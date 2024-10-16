@@ -1,21 +1,19 @@
 import Navbar from "../components/Navbar"
 import RandomPick from "../components/RandomPick"
 import BottomNavbar from "../components/BottomNavbar"
-import { useState } from "react"
+import { useState } from 'react';
 import SearchScreen from "./SearchScreen"
 
 const HomeScreen = () => {
-    const [searchActive, setSearchActive] = useState(false);
 
-    function changeSearchStatus() {
-        setSearchActive(!searchActive);
-    }
+    // Nav state
+    const [searchActive, setSearchActive] = useState(false);
     
     return (
         <div className="flex flex-col max-w-md mx-auto bg-white h-screen">
             <Navbar 
                 searchActive={searchActive}
-                switchToSearch={changeSearchStatus}
+                switchToSearch={() => setSearchActive(!searchActive)}
             />
             <div className="h-full mb-2">
                 {

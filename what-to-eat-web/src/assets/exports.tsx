@@ -6,6 +6,7 @@ import discoverIcon from './discover.png';
 import bookmarkIcon from './bookmark.png';
 import bookmarksIcon from './bookmarks.png';
 import settingsIcon from './settings.png';
+import openInNew from './open-in-new-tab.png'
 
 export {
     menuIcon, 
@@ -15,5 +16,6 @@ export {
     discoverIcon,
     bookmarkIcon,
     bookmarksIcon,
-    settingsIcon
+    settingsIcon,
+    openInNew
 }; 
