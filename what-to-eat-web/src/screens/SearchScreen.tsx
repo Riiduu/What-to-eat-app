@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from "react";
-import { useIngredients } from "../api/useIngredients";
+import { useState, useEffect } from "react";
+import { useIngredients } from "../api/getIngredients";
 import { searchIcon } from "../assets/exports";
 
 const SearchScreen = () => {
@@ -85,7 +85,7 @@ const SearchScreen = () => {
         // Cleanup event listener on component unmount
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
-        };
+        };      
     }, [includedInputActive, excludedInputActive]);
 
 

@@ -8,10 +8,13 @@ export const useIngredients = () => {
     const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
     const [selectedMax, setSelectedMax] = useState(0);
 
+    // Search Items
+    const [searchItems, setSearchItems] = useState<string[]>([]);
+
     const includedInputRef = useRef("");
     const excludedInputRef = useRef("");
 
-    const api = 'https://api.edamam.com/api/recipes/v2?app_id=d733ef7d&app_key=5ebdbaff6b4f0409e0deb109f379ef91&type=public';
+    const api = 'https://api.edamam.com/api/recipes/v2?app_id=d733ef7d&app_key=5ebdbaff6b4f0409e0deb109f379ef91&type=public&from=0&to=5';
 
     const searchInfo = {
         ingredients: ingredientsList,
@@ -39,11 +42,12 @@ export const useIngredients = () => {
 
         axios.get(query)
             .then(function (response) {
-                // handle success
-                console.log(response.data.hits);
-            })
+                    setSearchItems(response.data.hits)
+                    console.log(searchItems)
+                }
+        )
 
-        }
+    }
         
 
     // Function to remove an ingredient from the list
@@ -69,6 +73,8 @@ export const useIngredients = () => {
         includedInputRef,
         excludedInputRef,
         searchNow,
-        searchInfo
+        searchInfo,
+
+        searchItems
     };
 };
