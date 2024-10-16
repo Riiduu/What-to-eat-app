@@ -1,27 +1,13 @@
 import { useRef, useState, useEffect } from "react";
+import { useIngredients } from "../api/useIngredients";
 import { searchIcon } from "../assets/exports";
 
 const SearchScreen = () => {
-
-    /////////// LISTS / Info
-    // Holds the selected ingredients
-    const [ingredientsList, setIngredientsList] = useState<string[]>(["Tomato", "Potato", "Carrot"]);
-    // Holds the excluded ingredients list
-    const [excludedIngredients, setExcludedIngredients] = useState<string[]>(["Pineapple"]);
-    // MaxIngredients state
-    const [selectedMax, setSelectedMax] = useState(0)
-
     /////////// INPUT STATES
     // Add ingredient input
     const [includedInputActive, setIncludedInputActive] = useState(false);
     // exclude ingredient input
     const [excludedInputActive, setExcludedInputActive] = useState(false);
-
-    //////// INPUTS
-    // Included ingredients
-    const includedInputRef = useRef("");
-    // Excluded Ingredients
-    const excludedInputRef = useRef("")
 
     // Ingredient item component
     const IngredientItem = (props: any) => {
@@ -32,7 +18,25 @@ const SearchScreen = () => {
         return (
             <a onClick={() => removeIngredient(props.setArray, props.array)} className="bg-blue-500 cursor-pointer text-white m-1 px-3 py-2 rounded-2xl font-medium title-text">{props.item}</a>
         )
-    }
+    };
+
+    // Function to add a new ingredient to the list
+    const addIngredient = () => {
+        if (includedInputRef.current.value) {
+            setIngredientsList([...ingredientsList, includedInputRef.current.value]);
+            includedInputRef.current.value = ""; // Clear input after adding
+            setIncludedInputActive(false);
+        }
+    };
+
+    // Function to add a new excluded ingredient
+    const addExcludedIngredient = () => {
+        if (excludedInputRef.current.value) {
+            setExcludedIngredients([...excludedIngredients, excludedInputRef.current.value]);
+            excludedInputRef.current.value = ""; // Clear input after adding
+            setExcludedInputActive(false);
+        }
+    };
 
     // MaxIngredient button component
     const MaxIngredientComponent = (props: any) => {
@@ -49,18 +53,17 @@ const SearchScreen = () => {
         );
     };
 
-    // Called on input submit (enter key). Inserts the item into the state array
-    const InsertItem = () => {
-        setIngredientsList([...ingredientsList, includedInputRef.current.value])
-        includedInputRef.current.value = "";
-        setIncludedInputActive(false);
-    }
-
-    const InsertExcluded = () => {
-        setExcludedIngredients([...excludedIngredients, excludedInputRef.current.value])
-        excludedInputRef.current.value = "";
-        setExcludedInputActive(false);
-    }
+    const {
+        ingredientsList,
+        setIngredientsList,
+        excludedIngredients,
+        setExcludedIngredients,
+        selectedMax,
+        setSelectedMax,
+        includedInputRef,
+        excludedInputRef,
+        searchNow
+    } = useIngredients();
 
     // included ingredient input box reaction to clicks outside of it
     useEffect(() => {
@@ -85,6 +88,8 @@ const SearchScreen = () => {
         };
     }, [includedInputActive, excludedInputActive]);
 
+
+    
     
     // random
     const items = Array(6).fill("Item");
@@ -103,7 +108,7 @@ const SearchScreen = () => {
                             return <IngredientItem item={item} key={key} setArray={setIngredientsList} array={ingredientsList}/>
                         })
                     }
-                    <form className="relative flex justify-center" onSubmit={InsertItem}>
+                    <form className="relative flex justify-center" onSubmit={addIngredient}>
                         {
                             includedInputActive && <input type="text" className="absolute top-[-45px] rounded-xl border-black border-2 shadow-md outline-none w-40 py-2 px-1" ref={includedInputRef}/>
                         }
@@ -118,7 +123,7 @@ const SearchScreen = () => {
             <div className="flex flex-col w-full my-5">
                 <div className="flex flex-row justify-between items-center">
                     <h1 className="text-3xl font-extrabold title-text">Max Additional Ingredients</h1>
-                    <span className="flex justify-center items-center text-xl font-bold rounded-xl ml-5 p-4 w-7 h-7 bg-orange-400 text-white">0</span>
+                    <span className="flex justify-center items-center text-xl font-bold rounded-xl ml-5 p-4 w-7 h-7 bg-orange-400 text-white">{selectedMax}</span>
                 </div>
                 <div className="flex flex-row items-center mt-4 space-x-3">
                     <MaxIngredientComponent item="0"/>
@@ -142,7 +147,7 @@ const SearchScreen = () => {
                             return <IngredientItem item={item} key={key} setArray={setExcludedIngredients} array={excludedIngredients}/>
                         })
                     }
-                    <form className="relative flex justify-center" onSubmit={InsertExcluded}>
+                    <form className="relative flex justify-center" onSubmit={addExcludedIngredient}>
                         {
                             excludedInputActive && <input type="text" className="absolute top-[-45px] rounded-xl border-black border-2 shadow-md outline-none w-40 py-2 px-1" ref={excludedInputRef}/>
                         }
@@ -151,7 +156,7 @@ const SearchScreen = () => {
                     </form>
                 </div>
             </div>
-            <button className="absolute cursor-pointer flex flex-row justify-center items-center py-2 px-4 bg-black text-white text-2xl font-bold rounded-xl bottom-5 right-0 active:shadow-2xl shadow-md">
+            <button onClick={() => searchNow()} className="absolute cursor-pointer flex flex-row justify-center items-center py-2 px-4 bg-black text-white text-2xl font-bold rounded-xl bottom-5 right-0 active:shadow-2xl shadow-md">
                 Search
                 <img src={searchIcon} className="h-6 ml-2" alt="Search Icon" />
             </button>
