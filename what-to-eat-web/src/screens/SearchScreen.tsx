@@ -3,6 +3,19 @@ import { useIngredients } from "../api/getIngredients";
 import { searchIcon } from "../assets/exports";
 
 const SearchScreen = () => {
+    const {
+        ingredientsList,
+        setIngredientsList,
+        excludedIngredients,
+        setExcludedIngredients,
+        selectedMax,
+        setSelectedMax,
+        includedInputRef,
+        excludedInputRef,
+        searchInfo,
+        searchNow
+    } = useIngredients();
+
     /////////// INPUT STATES
     // Add ingredient input
     const [includedInputActive, setIncludedInputActive] = useState(false);
@@ -19,6 +32,14 @@ const SearchScreen = () => {
             <a onClick={() => removeIngredient(props.setArray, props.array)} className="bg-blue-500 cursor-pointer text-white m-1 px-3 py-2 rounded-2xl font-medium title-text">{props.item}</a>
         )
     };
+
+    const checkSearch = () => {
+        if (searchInfo.ingredients.length == 0) {
+            alert('Enter search preferences')
+        } else {
+            searchNow()
+        }
+    }
 
     // Function to add a new ingredient to the list
     const addIngredient = () => {
@@ -52,18 +73,6 @@ const SearchScreen = () => {
             </a>
         );
     };
-
-    const {
-        ingredientsList,
-        setIngredientsList,
-        excludedIngredients,
-        setExcludedIngredients,
-        selectedMax,
-        setSelectedMax,
-        includedInputRef,
-        excludedInputRef,
-        searchNow
-    } = useIngredients();
 
     // included ingredient input box reaction to clicks outside of it
     useEffect(() => {
@@ -156,7 +165,7 @@ const SearchScreen = () => {
                     </form>
                 </div>
             </div>
-            <button onClick={() => searchNow()} className="absolute cursor-pointer flex flex-row justify-center items-center py-2 px-4 bg-black text-white text-2xl font-bold rounded-xl bottom-5 right-0 active:shadow-2xl shadow-md">
+            <button onClick={checkSearch} className="absolute cursor-pointer flex flex-row justify-center items-center py-2 px-4 bg-black text-white text-2xl font-bold rounded-xl bottom-5 right-0 active:shadow-2xl shadow-md">
                 Search
                 <img src={searchIcon} className="h-6 ml-2" alt="Search Icon" />
             </button>
