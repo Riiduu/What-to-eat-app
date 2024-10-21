@@ -21,7 +21,7 @@ export const useIngredients = () => {
 
     // Redux global state
     // holds the search results
-    const searchInfoState = useSelector((state) => state.searchInfo.value)
+    const searchInfoState = useSelector((state: any) => state.searchInfo.value)
     const dispatch = useDispatch()
 
     // Api link with the key provided (personal)
