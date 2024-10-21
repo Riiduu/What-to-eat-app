@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useIngredients } from "../api/useIngredients";
 //img
 import { searchIcon } from "../assets/exports";
-import React from "react";
 
 const SearchScreen = () => {
     // Functions and states from the custom hook
@@ -17,8 +16,14 @@ const SearchScreen = () => {
         includedInputRef,
         excludedInputRef,
         searchInfo,
-        searchNow
+        searchNow,
+
+        mealType,
+        setMealType
     } = useIngredients();
+
+    // Meals
+    const meals = ["Breakfast", "Brunch", "Lunch / Dinner", "Snack", "Teatime"];
 
     /////////// INPUT STATES
     // Add ingredient input
@@ -29,7 +34,7 @@ const SearchScreen = () => {
     // Ingredient item component
     const IngredientItem = (props: any) => {
         const removeIngredient = (setArray: any, array: any) => {
-            setArray(array.filter(item => item !== props.item));
+            setArray(array.filter((item: any) => item !== props.item));
         }
         
         return (
@@ -47,8 +52,9 @@ const SearchScreen = () => {
     }
 
     // Function to add a new ingredient to the list
-    const addIngredient = () => {
-        if (includedInputRef.current.value) {
+    const addIngredient = (e: any) => {
+        e.preventDefault();
+        if (includedInputRef.current?.value) {
             setIngredientsList([...ingredientsList, includedInputRef.current.value]);
             includedInputRef.current.value = ""; // Clear input after adding
             setIncludedInputActive(false);
@@ -56,8 +62,9 @@ const SearchScreen = () => {
     };
 
     // Function to add a new excluded ingredient
-    const addExcludedIngredient = () => {
-        if (excludedInputRef.current.value) {
+    const addExcludedIngredient = (e: any) => {
+        e.preventDefault();
+        if (excludedInputRef.current?.value) {
             setExcludedIngredients([...excludedIngredients, excludedInputRef.current.value]);
             excludedInputRef.current.value = ""; // Clear input after adding
             setExcludedInputActive(false);
@@ -73,9 +80,25 @@ const SearchScreen = () => {
         const isSelected = selectedMax === parseInt(props.item);
 
         return (
-            <a onClick={handleClick} href="#" className={`w-9 h-9 flex justify-center items-center rounded-xl p-2 font-medium text-2xl ${isSelected ? 'bg-blue-500' : 'bg-green-500'} text-white`}>
+            <a onClick={handleClick} className={`w-9 h-9 flex justify-center items-center rounded-xl p-2 font-medium text-2xl ${isSelected ? 'bg-blue-500' : 'bg-green-500'} text-white cursor-pointer`}>
                 {props.item}
             </a>
+        );
+    };
+
+    
+
+    // Meal type button component
+    const MealTypeComponent = (props: any) => {
+        const handleClick = () => {
+            setMealType(meals.findIndex(x => x === props.item))
+        }
+
+        
+        const selected = mealType === meals.findIndex(x => x === props.item);
+
+        return (
+            <a onClick={handleClick} className={`h-9 m-1 flex justify-center items-center rounded-xl px-3 py-2 font-medium ${selected ? 'bg-blue-500' : 'bg-green-500'} text-white cursor-pointer`}>{props.item}</a>
         );
     };
 
@@ -121,7 +144,7 @@ const SearchScreen = () => {
                             includedInputActive && <input type="text" className="absolute top-[-45px] rounded-xl border-black border-2 shadow-md outline-none w-40 py-2 px-1" ref={includedInputRef}/>
                         }
                         
-                        <a onClick={() => setIncludedInputActive(!includedInputActive)} href="#" className="bg-green-500 text-white m-1 px-3 py-2 rounded-2xl font-medium title-text">Add +</a>
+                        <a onClick={() => setIncludedInputActive(!includedInputActive)} className="bg-green-500 text-white m-1 px-3 py-2 rounded-2xl font-medium title-text cursor-pointer">Add +</a>
                     </form>
                     
                 </div>
@@ -160,8 +183,20 @@ const SearchScreen = () => {
                             excludedInputActive && <input type="text" className="absolute top-[-45px] rounded-xl border-black border-2 shadow-md outline-none w-40 py-2 px-1" ref={excludedInputRef}/>
                         }
                         
-                        <a onClick={() => setExcludedInputActive(!excludedInputActive)} href="#" className="bg-green-500 text-white m-1 px-3 py-2 rounded-2xl font-medium title-text">Add +</a>
+                        <a onClick={() => setExcludedInputActive(!excludedInputActive)} className="bg-green-500 text-white m-1 px-3 py-2 rounded-2xl font-medium title-text cursor-pointer">Add +</a>
                     </form>
+                </div>
+            </div>
+            <div className="flex flex-col w-full my-5">
+                <div className="flex flex-row justify-between items-center">
+                    <h1 className="text-3xl font-extrabold title-text">Meal Type</h1>
+                </div>
+                <div className="flex flex-row items-center mt-2 -mx-1 flex-wrap">
+                    {
+                        meals.map((item, key) => {
+                            return <MealTypeComponent key={key} item={item} />
+                        })
+                    }
                 </div>
             </div>
             <button onClick={checkSearch} className="absolute cursor-pointer flex flex-row justify-center items-center py-2 px-4 bg-black text-white text-2xl font-bold rounded-xl bottom-5 right-0 active:shadow-2xl shadow-md">

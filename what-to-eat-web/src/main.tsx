@@ -7,8 +7,7 @@ import {
 import HomeScreen from './screens/HomeScreen';
 import SearchResultsScreen from './screens/SearchResultsScreen';
 import {Provider} from "react-redux";
-import store from './store/store'
-import React from 'react';
+import store from './store/store';
 
 const router = createBrowserRouter([
   {
