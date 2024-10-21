@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import SearchScreen from './screens/SearchScreen.tsx';
 import HomeScreen from './screens/HomeScreen.tsx';
 import SearchResultsScreen from './screens/SearchResultsScreen.tsx';
 
@@ -12,10 +11,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeScreen />,
-  },
-  {
-    path: "/search",
-    element: <SearchScreen />
   },
   {
     path: '/results',
