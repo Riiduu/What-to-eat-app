@@ -52,8 +52,7 @@ export const useIngredients = () => {
             .then(function async (response) {
                 setSearchItems(response.data.hits)
                 console.log(searchItems)
-                // For some reason shit loads slow as fuck. I don't know what the fuck is happening here
-                
+                // For some reason shit loads slow as fuck. I don't know what the fuck is happening here. It usually needs to search twice until it's good                
             }
         )
     }        

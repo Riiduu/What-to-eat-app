@@ -2,6 +2,7 @@
 import { openInNew } from "../assets/exports";
 import Navbar from "../components/Navbar";
 import BottomNavbar from "../components/BottomNavbar";
+import React from "react";
 
 const SearchResultsScreen = () => {
 

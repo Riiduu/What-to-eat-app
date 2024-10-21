@@ -6,6 +6,9 @@ import {
 } from "react-router-dom";
 import HomeScreen from './screens/HomeScreen.tsx';
 import SearchResultsScreen from './screens/SearchResultsScreen.tsx';
+import {Provider} from "react-redux";
+import store from './store/store.ts'
+import React from 'react';
 
 const router = createBrowserRouter([
   {
@@ -19,7 +22,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')!).render(
-  <>
+  <Provider store={store}>
     <RouterProvider router={router} />
-  </>,
+  </Provider>,
 )

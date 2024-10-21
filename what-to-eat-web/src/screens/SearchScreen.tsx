@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useIngredients } from "../api/useIngredients";
 //img
 import { searchIcon } from "../assets/exports";
+import React from "react";
 
 const SearchScreen = () => {
     // Functions and states from the custom hook
@@ -27,7 +28,7 @@ const SearchScreen = () => {
 
     // Ingredient item component
     const IngredientItem = (props: any) => {
-        const removeIngredient = (setArray: any, array: any) => {                         
+        const removeIngredient = (setArray: any, array: any) => {
             setArray(array.filter(item => item !== props.item));
         }
         
