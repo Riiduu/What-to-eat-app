@@ -1,0 +1,24 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.openInNew = exports.settingsIcon = exports.bookmarksIcon = exports.bookmarkIcon = exports.discoverIcon = exports.randomFood = exports.closeIcon = exports.searchIcon = exports.menuIcon = void 0;
+const menu_png_1 = __importDefault(require("./menu.png"));
+exports.menuIcon = menu_png_1.default;
+const search_png_1 = __importDefault(require("./search.png"));
+exports.searchIcon = search_png_1.default;
+const close_png_1 = __importDefault(require("./close.png"));
+exports.closeIcon = close_png_1.default;
+const random_food_img_png_1 = __importDefault(require("./random-food-img.png"));
+exports.randomFood = random_food_img_png_1.default;
+const discover_png_1 = __importDefault(require("./discover.png"));
+exports.discoverIcon = discover_png_1.default;
+const bookmark_png_1 = __importDefault(require("./bookmark.png"));
+exports.bookmarkIcon = bookmark_png_1.default;
+const bookmarks_png_1 = __importDefault(require("./bookmarks.png"));
+exports.bookmarksIcon = bookmarks_png_1.default;
+const settings_png_1 = __importDefault(require("./settings.png"));
+exports.settingsIcon = settings_png_1.default;
+const open_in_new_tab_png_1 = __importDefault(require("./open-in-new-tab.png"));
+exports.openInNew = open_in_new_tab_png_1.default;
