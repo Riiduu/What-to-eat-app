@@ -3,13 +3,17 @@ import { openInNew } from "../assets/exports";
 import Navbar from "../components/Navbar";
 import BottomNavbar from "../components/BottomNavbar";
 import React from "react";
+import {useSelector} from "react-redux";
 
 const SearchResultsScreen = () => {
+
+    // search results
+    const searchInfoState = useSelector((state) => state.searchInfo.value)
 
     const SearchResult = (props: any) => {
         // Makes sure the link has 'https://'
         const checkAndOpenLink = (recipeLink: string) => {
-            if (recipeLink.includes('https://')) {
+            if (recipeLink.includes('https://') || recipeLink.includes('http://')) {
                 window.open(recipeLink, "_blank")
             } else {
                 window.open(`https://${recipeLink}`, '_blank')
@@ -28,22 +32,22 @@ const SearchResultsScreen = () => {
     }
     
     return (
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center max-w-md mx-auto">
 
             {/** Implement some sort of functionality or at least use */}
             <Navbar />
             {
                 // Displays 10 recipes
-                [...Array(10)].map((_, index) => { 
+                searchInfoState.map((index, _) => {
                     return <SearchResult 
-                        resultImg="https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/newscms/2021_34/1765653/squareat-inline-02-khu-210825.png"
-                        resultTitle="I don't know, but looks tasty"
-                        recipeLink="google.com"
-                        key={index}
+                        resultImg={index.recipe.image}
+                        resultTitle={index.recipe.label}
+                        recipeLink={index.recipe.shareAs}
+                        key={_}
                         />
                 })
             }
-            <div className="flex flex-col justify-center sticky bottom-0 bg-white border-t-2 rounded-t-xl items-center">
+            <div className="flex flex-col justify-center sticky bottom-0 bg-white items-center">
                 {/** A button to load more recipes 
                  *   TODO: Make it appear towards the end
                 */}

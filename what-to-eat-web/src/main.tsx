@@ -4,10 +4,10 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import HomeScreen from './screens/HomeScreen.tsx';
-import SearchResultsScreen from './screens/SearchResultsScreen.tsx';
+import HomeScreen from './screens/HomeScreen';
+import SearchResultsScreen from './screens/SearchResultsScreen';
 import {Provider} from "react-redux";
-import store from './store/store.ts'
+import store from './store/store'
 import React from 'react';
 
 const router = createBrowserRouter([
