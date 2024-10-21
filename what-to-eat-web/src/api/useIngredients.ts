@@ -14,10 +14,11 @@ export const useIngredients = () => {
     const [ingredientsList, setIngredientsList] = useState<string[]>([]);
     const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
     const [selectedMax, setSelectedMax] = useState(0);
+    const [mealType, setMealType] = useState(0)
 
     // Input refs
-    const includedInputRef = useRef("");
-    const excludedInputRef = useRef("");
+    const includedInputRef = useRef<HTMLInputElement>(null);
+    const excludedInputRef = useRef<HTMLInputElement>(null);
 
     // Redux global state
     // holds the search results
@@ -34,8 +35,31 @@ export const useIngredients = () => {
         excluded: excludedIngredients
     }
 
+    
+
     // Sets and null checks the search refinements
     const searchNow = () => {
+        let foodType: string;
+        switch (mealType) {
+            case 0:
+                foodType = "breakfast";
+                break;
+            case 1:
+                foodType = "brunch";
+                break;
+            case 2:
+                foodType = "lunch";
+                break;
+            case 3:
+                foodType = "snack";
+                break;
+            case 4:
+                foodType = "teatime";
+                break;
+            default:
+                foodType = "breakfast"
+        }
+
         const query = `${api}${
                 selectedMax != 0 ?
                 `&ingr=${searchInfo.maxAdditional}`
@@ -49,6 +73,8 @@ export const useIngredients = () => {
                 excludedIngredients.length != 0 ?
                 `&excluded=${searchInfo.excluded}`
                 : ''
+            }${
+                `&mealType=${foodType}`
             }`
 
         axios.get(query)
@@ -87,5 +113,8 @@ export const useIngredients = () => {
         excludedInputRef,
         searchNow,
         searchInfo,
+
+        mealType,
+        setMealType
     };
 };

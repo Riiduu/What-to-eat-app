@@ -2,13 +2,12 @@
 import { openInNew } from "../assets/exports";
 import Navbar from "../components/Navbar";
 import BottomNavbar from "../components/BottomNavbar";
-import React from "react";
 import {useSelector} from "react-redux";
 
 const SearchResultsScreen = () => {
 
     // search results
-    const searchInfoState = useSelector((state) => state.searchInfo.value)
+    const searchInfoState = useSelector((state: any) => state.searchInfo.value)
 
     const SearchResult = (props: any) => {
         // Makes sure the link has 'https://'
@@ -38,7 +37,7 @@ const SearchResultsScreen = () => {
             <Navbar />
             {
                 // Displays 10 recipes
-                searchInfoState.map((index, _) => {
+                searchInfoState.map((index: any, _:any) => {
                     return <SearchResult 
                         resultImg={index.recipe.image}
                         resultTitle={index.recipe.label}
