@@ -6,7 +6,7 @@
   const isHome = ref(true)
 
 
-  if (router.currentRoute._value.fullPath == "/") {
+  if (router.currentRoute._rawValue.fullPath === "/") {
     isHome.value = true;
   } else {
     isHome.value = false;
@@ -15,6 +15,8 @@
   const setIsHome = () => {
     isHome.value = !isHome.value;
   }
+  // I don't get it... It makes absolutely no fucking sense
+  console.log(router.currentRoute._rawValue.fullPath)
 
 
 </script>
