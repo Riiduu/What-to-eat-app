@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar"
 import RandomPick from "../components/RandomPick"
 import BottomNavbar from "../components/BottomNavbar"
-import { useState } from 'react';
+import { useState } from "react"
 import SearchScreen from "./SearchScreen"
 
 const HomeScreen = () => {
