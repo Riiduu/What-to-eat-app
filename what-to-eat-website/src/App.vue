@@ -22,7 +22,7 @@
 </script>
 
 <template>
-  <div class="px-5 mx-auto max-w-md justify-center">  
+  <div class="px-5 mx-auto max-w-md justify-center" style="height: calc(100vh - 200px);">  
     <div class="flex flex-row w-full justify-between mt-5 items-center h-20">
         <h1 class="text-4xl font-extrabold title-text cursor-pointer" v-if="isHome">What to eat</h1>
         <h1 class="text-4xl font-extrabold title-text cursor-pointer" v-else>Filters</h1>
