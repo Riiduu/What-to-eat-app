@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeScreen from './screens/HomeScreen.vue'
+import SearchScreen from './screens/SearchScreen.vue'
 
 const routes = [
   {
@@ -7,6 +8,11 @@ const routes = [
     name: 'Home',
     component: HomeScreen
   },
+  {
+    path: '/search',
+    name: 'Search',
+    component: SearchScreen
+  }
   // add more routes here
 ]
 
