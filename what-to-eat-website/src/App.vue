@@ -1,9 +1,36 @@
 <script setup lang="ts">
+  import {closeIcon, searchIcon} from './assets/exports.ts'
+  import { ref } from 'vue'
+  import router from './router.js'
+
+  const isHome = ref(true)
+
+
+  if (router.currentRoute._value.fullPath == "/") {
+    isHome.value = true;
+  } else {
+    isHome.value = false;
+  }
+
+  const setIsHome = () => {
+    isHome.value = !isHome.value;
+  }
+
 
 </script>
 
 <template>
-  <h1 class="">Yeye</h1>
+  <div class="px-5 mx-auto max-w-md justify-center">  
+    <div class="flex flex-row w-full justify-between mt-5 items-center h-20">
+        <h1 class="text-4xl font-extrabold title-text cursor-pointer" v-if="isHome">What to eat</h1>
+        <h1 class="text-4xl font-extrabold title-text cursor-pointer" v-else>Filters</h1>
+        <div onClick={props.switchToSearch} class="bg-black cursor-pointer h-12 flex w-12 rounded-xl">
+            <img @click="setIsHome" v-if="isHome == true" :src="searchIcon" class="h-6 m-auto" alt="" />
+            <img @click="setIsHome" v-else :src="closeIcon" class="h-6 m-auto" alt="" />
+        </div>
+    </div>
+    <router-view />
+  </div>
 </template>
 
 <style scoped>
