@@ -21,3 +21,4 @@ There won't be any accounts for now. That can come in later at some point, but n
 - The bottom navbar won't be included. Or for that matter a navbar of any kind
         
 ### Backend
+- Food api: api.edamam.com
