@@ -2,9 +2,12 @@
 import { openInNew } from "../assets/exports";
 import Navbar from "../components/Navbar";
 import BottomNavbar from "../components/BottomNavbar";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SearchResultsScreen = () => {
+    // navigator
+    const navigate = useNavigate();
 
     // search results
     const searchInfoState = useSelector((state: any) => state.searchInfo.value)
@@ -25,38 +28,45 @@ const SearchResultsScreen = () => {
                 <div className="ml-3 h-full flex items-center">
                     <h1 onClick={() => checkAndOpenLink(props.recipeLink)} className='text-2xl font-medium title-text cursor-pointer'>{props.resultTitle}<img src={openInNew} className="h-5 cursor-pointer" alt="" /></h1>
                 </div>
-                
+
             </div>
         )
     }
-    
-    return (
-        <div className="flex flex-col justify-center max-w-md mx-auto">
 
-            {/** Implement some sort of functionality or at least use */}
-            <Navbar />
-            {
-                // Displays 10 recipes
-                searchInfoState.map((index: any, _:any) => {
-                    return <SearchResult 
-                        resultImg={index.recipe.image}
-                        resultTitle={index.recipe.label}
-                        recipeLink={index.recipe.shareAs}
-                        key={_}
+    const navigateToHome = () => {
+        navigate('/')
+    }
+
+    if (searchInfoState.length > 0) {
+        return (
+            <div className="flex flex-col justify-center max-w-md mx-auto">
+                {/** Implement some sort of functionality or at least use */}
+                < Navbar />
+                {
+
+                    // Displays 10 recipes
+                    searchInfoState.map((index: any, _: any) => {
+                        return <SearchResult
+                            resultImg={index.recipe.image}
+                            resultTitle={index.recipe.label}
+                            recipeLink={index.recipe.shareAs}
+                            key={_}
                         />
-                })
-            }
-            <div className="flex flex-col justify-center sticky bottom-0 bg-white items-center">
-                {/** A button to load more recipes 
+                    })
+                }
+                <div className="flex flex-col justify-center sticky bottom-0 bg-white items-center">
+                    {/** A button to load more recipes 
                  *   TODO: Make it appear towards the end
                 */}
-                
 
-                <BottomNavbar />
-            </div>
-            
-        </div>
-    )
+
+                    <BottomNavbar />
+                </div>
+            </div >
+        )
+    } else {
+        navigateToHome();
+    }
 }
 
 export default SearchResultsScreen;

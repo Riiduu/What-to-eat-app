@@ -1,21 +1,49 @@
 //import { useState } from "react"
+import { useEffect, useState } from "react";
+import axios from 'axios'
 
 const RandomPick = () => {
-    const randomFood = 'https://hungrybynature.com/wp-content/uploads/2017/09/pinch-of-yum-workshop-19.jpg';
+  const [randomFood, setRandomFood] = useState(null);
+  const [dataLoaded, setdataLoaded] = useState(false);
+
+  const apiCall =
+    "https://api.edamam.com/api/recipes/v2?app_id=d733ef7d&app_key=5ebdbaff6b4f0409e0deb109f379ef91&type=public&from=0&to=10&mealType=lunch";
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(apiCall);
+        const foodData = res.data.hits[0]?.recipe; // Safely access the recipe
+        setRandomFood(foodData);
+        setdataLoaded(true)
+      } catch (error) {
+        console.error("Error fetching random food:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(randomFood)
+
+  const transferToRecipe = () => {
+    window.open(randomFood?.url, '_blank')
+  }
 
   return (
-    <div className="flex justify-center h-full my-3 cursor-pointer hover:scale-[1.01] duration-200  mx-5">
-        {/* Card Container */}
-        <div className="relative w-full max-w-md bg-white rounded-3xl shadow-md hover:shadow-2xl overflow-hidden">
-            {/* Image */}
-            <img src={randomFood} alt="Random Food" className="w-full h-full object-cover" />
+    <div className="flex justify-center h-full my-3 cursor-pointer hover:scale-[1.01] duration-200  mx-5" onClick={() => transferToRecipe()}>
+      {/* Card Container */}
+      <div className="relative w-full max-w-md bg-white rounded-3xl shadow-md hover:shadow-2xl overflow-hidden">
+        {/* Image */}
+        <img src={randomFood?.image} alt="Random Food" className="w-full h-full object-cover" />
 
-            {/* Text Content */}
-            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-40 p-4 text-white">
-            <h2 className="text-lg font-bold title-text">Random pick</h2>
-            <p className="text-sm title-text">These pancakes look fucking amazing, holy shit.</p>
-            </div>
+        {/* Text Content */}
+        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-40 p-4 text-white">
+          <h2 className="text-lg title-text">Random pick: <span className="font-bold">{randomFood?.label}</span></h2>
+          <p className="text-sm title-text">Source: {randomFood?.source}</p>
         </div>
+      </div>
     </div>
   );
 };
