@@ -7,14 +7,16 @@ const RandomPick = () => {
   const [dataLoaded, setdataLoaded] = useState(false);
 
   const apiCall =
-    "https://api.edamam.com/api/recipes/v2?app_id=d733ef7d&app_key=5ebdbaff6b4f0409e0deb109f379ef91&type=public&from=0&to=10&mealType=lunch";
+    "https://api.edamam.com/api/recipes/v2?app_id=d733ef7d&app_key=5ebdbaff6b4f0409e0deb109f379ef91&type=public&from=0&to=20&mealType=snack";
 
+
+  const random = Math.floor(Math.random() * 20);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(apiCall);
-        const foodData = res.data.hits[0]?.recipe; // Safely access the recipe
+        const foodData = res.data.hits[random]?.recipe; // Safely access the recipe
         setRandomFood(foodData);
         setdataLoaded(true)
       } catch (error) {
