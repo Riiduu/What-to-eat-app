@@ -6,11 +6,30 @@ const RandomPick = () => {
   const [randomFood, setRandomFood] = useState(null);
   const [dataLoaded, setdataLoaded] = useState(false);
 
-  const apiCall =
-    "https://api.edamam.com/api/recipes/v2?app_id=d733ef7d&app_key=5ebdbaff6b4f0409e0deb109f379ef91&type=public&from=0&to=20&mealType=snack";
-
+  let foodType: string;
 
   const random = Math.floor(Math.random() * 20);
+  const foodRandom = Math.floor(Math.random() * 3);
+
+  switch (foodRandom) {
+    case 0:
+      foodType = "snack";
+      break;
+    case 1:
+      foodType = "breakfast"
+      break;
+    case 2:
+      foodType = "lunch";
+      break;
+    case 3:
+      foodType = "teatime"
+      break;
+  }
+
+  const apiCall =
+    `https://api.edamam.com/api/recipes/v2?app_id=d733ef7d&app_key=5ebdbaff6b4f0409e0deb109f379ef91&type=public&from=0&to=20&mealType=${foodType}`;
+
+
 
   useEffect(() => {
     const fetchData = async () => {
