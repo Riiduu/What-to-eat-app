@@ -7,7 +7,7 @@ const RandomPick = () => {
   const [dataLoaded, setdataLoaded] = useState(false);
 
   let foodType: string;
-  // I don't wanna lose my github commit streak
+  // streak update: lazy day number 2
 
   const random = Math.floor(Math.random() * 20);
   const foodRandom = Math.floor(Math.random() * 3);
